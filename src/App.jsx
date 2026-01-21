@@ -1,8 +1,13 @@
 import './App.css'
+import { useState } from 'react'
 import languages from '../data/languages'
 
 function App() {
-  const firstLanguage = languages[0]
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0])
+
+  const handleButtonClick = (language) => {
+    setSelectedLanguage(language)
+  }
 
   return (
     <main className="app">
@@ -12,17 +17,21 @@ function App() {
       </header>
 
       <div className="app__buttons">
-        {languages.map(({ id, title }) => (
-          <button key={id} className="language-button">
-            {title}
+        {languages.map((language) => (
+          <button
+            key={language.id}
+            className="language-button"
+            onClick={() => handleButtonClick(language)}
+          >
+            {language.title}
           </button>
         ))}
       </div>
 
-      {firstLanguage && (
+      {selectedLanguage && (
         <section className="language-card">
-          <h2>{firstLanguage.title}</h2>
-          <p>{firstLanguage.description}</p>
+          <h2>{selectedLanguage.title}</h2>
+          <p>{selectedLanguage.description}</p>
         </section>
       )}
     </main>
